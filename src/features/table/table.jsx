@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TableCell from '../table-cell/table-cell';
 import TableService from './table-service';
+import LearnerGameService from '../learner-game/learner-game-service';
 import { cellPieceType } from '../../shared/constants';
 
 function Table({ gameId, makeMove, isMoveDisabled }) {
@@ -17,7 +18,7 @@ function Table({ gameId, makeMove, isMoveDisabled }) {
     if (isMoveDisabled) return;
 
     if (cellsStates[cellId].piece === cellPieceType.user) {
-      const possibleCellIdMoves = TableService.getPossibleCellIdMoves(gameId, cellId);
+      const possibleCellIdMoves = LearnerGameService.getPossibleCellIdUserMoves(gameId, cellId);
 
       const newCellsStates = TableService.getInitialCellStatesFromGameId(gameId);
       newCellsStates[cellId].isSelected = true;
@@ -33,7 +34,7 @@ function Table({ gameId, makeMove, isMoveDisabled }) {
     }
 
     if (fromCellId !== null) {
-      const possibleCellIdMoves = TableService.getPossibleCellIdMoves(gameId, fromCellId);
+      const possibleCellIdMoves = LearnerGameService.getPossibleCellIdUserMoves(gameId, fromCellId);
 
       setFromCellId(null);
 

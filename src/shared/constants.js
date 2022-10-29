@@ -4,3 +4,8 @@ export const cellPieceType = {
   user: '1',
   computer: '2',
 };
+
+export const players = {
+  user: 1,
+  computer: 2,
+};

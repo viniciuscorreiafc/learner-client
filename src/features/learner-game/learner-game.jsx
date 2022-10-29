@@ -6,9 +6,9 @@ import { players } from '../../shared/constants';
 function LearnerGame() {
   const [gameId, setGameId] = useState('202020111');
   const [isMoveDisabled, setIsMoveDisabled] = useState(false);
-  const [winner, setWinner] = useState(null);
+  const [, setWinner] = useState(null);
 
-  const handleMakeMove = (fromCellId, toCellId) => {
+  const handleMakeMove = async (fromCellId, toCellId) => {
     setIsMoveDisabled(true);
 
     const gameIdAfterUserMove = LearnerGameService.getNewGameFromMove(gameId, fromCellId, toCellId);
@@ -20,6 +20,15 @@ function LearnerGame() {
     setGameId(gameIdAfterUserMove);
 
     setIsMoveDisabled(false);
+
+    const nextGame = await LearnerGameService.getGameAfterComputerMove(gameIdAfterUserMove);
+
+    // eslint-disable-next-line no-promise-executor-return
+    await (new Promise((resolve) => setTimeout(resolve, 1000)));
+
+    if (nextGame?.length === 9) {
+      setGameId(nextGame);
+    }
   };
 
   return (

@@ -13,7 +13,7 @@ function Table({ gameId, makeMove, isMoveDisabled }) {
     setCellsStates(TableService.getInitialCellStatesFromGameId(gameId));
   }, [gameId, setCellsStates]);
 
-  const handleTableCellClick = (cellId) => {
+  const handleTableCellClick = async (cellId) => {
     if (isMoveDisabled) return;
 
     if (cellsStates[cellId].piece === cellPieceType.user) {
@@ -37,7 +37,7 @@ function Table({ gameId, makeMove, isMoveDisabled }) {
 
       setFromCellId(null);
 
-      if (possibleCellIdMoves.includes(cellId)) makeMove(fromCellId, cellId);
+      if (possibleCellIdMoves.includes(cellId)) await makeMove(fromCellId, cellId);
     }
   };
 
